@@ -1,6 +1,6 @@
 import React, {createContext, useContext , useState} from 'react';
 import {  useMutation } from '@tanstack/react-query';
-import { AuthContextProps, LoginFormData, } from '../types';
+import { AuthContextProps, LoginFormData, SignupFormData, } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { postAPI } from '../utils/fetchData';
 
@@ -10,7 +10,11 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined)
 export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
     const navigate = useNavigate()
     const [user, setUser] = useState<Record<string,unknown>>({})
-    const [error, setError] = useState<string|undefined>()
+    const [notify, setNotify] = useState<{ state: boolean; msg: string; error?:boolean }>({
+        state: false,
+        msg: '',
+        error:false
+      });
 
     const login = useMutation({
         mutationFn: async (data: LoginFormData) => {
@@ -35,16 +39,68 @@ export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
             const userFriendlyMessage =
                 error?.response?.data?.error ||                 
                 fallbackMessage;                 
-                setError(userFriendlyMessage);
+                setNotify({state:true,msg:userFriendlyMessage,error:true})
+                setTimeout(() => {
+                    setNotify({state:false,msg:'',error:false})
+                }, 3000);
           },
         },
       );
 
+    const signup = useMutation({
+        mutationFn: async (data : SignupFormData) => {
+
+           const res = await postAPI('users/signup',data);
+           return res.data
+  
+       },
+         onSuccess: async () => {
+           
+         },
+         onError: async (error:any) => {
+            const fallbackMessage = 'Something went wrong. Please try again.';
+
+            const userFriendlyMessage =
+                error?.response?.data?.error ||                 
+                fallbackMessage;                 
+                setNotify({state:true,msg:userFriendlyMessage,error:true})
+                setTimeout(() => {
+                    setNotify({state:false,msg:'',error:false})
+                }, 3000);
+           console.error('Signup error:', error);
+         }
+       }
+     )
+
+     const sendPass = useMutation({
+        mutationFn: async (forgotEmail:string) => {
+          
+            const res = await postAPI('users/forgot-password', { forgotEmail });
+            return res.data;
+     
+        },
+          onError: (error:any) => {
+            
+            console.error('Forgot Pass error:', error);
+            const fallbackMessage = 'Something went wrong. Please try again.';
+
+            const userFriendlyMessage =
+                error?.response?.data?.error ||                 
+                fallbackMessage;                 
+                setNotify({state:true,msg:userFriendlyMessage,error:true})
+                setTimeout(() => {
+                    setNotify({state:false,msg:'',error:false})
+                }, 3000);
+    
+          },
+        }
+      );
       return (
-        <AuthContext.Provider value={{login,user,setUser,error}}>
+        <AuthContext.Provider value={{login,user,setUser, signup, sendPass, notify, setNotify}}>
             {children}
         </AuthContext.Provider>
       )
+
 }
 
 export function useAuthContext() {

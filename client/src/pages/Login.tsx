@@ -5,21 +5,13 @@ import Section from '../components/section'
 import { LoginFormData } from '../types'
 import { useAuthContext } from '../context/AuthContext'
 import { useGoogleLogin } from '@react-oauth/google';
-import { postAPI } from '../utils/fetchData'
-import { useNavigate } from 'react-router-dom';
 
 
 
 const Login = () => {
 
-    const navigate = useNavigate()
-    const [msg, setMsg] = useState<string>('')
-    const [notify, setNotify] = useState<{ state: boolean; msg: string }>({
-  state: false,
-  msg: '',
-});
 
-    const {login,error} = useAuthContext()
+    const {login,notify,setNotify} = useAuthContext()
     const [showPassword, setShowPassword] = useState(false);
 
   const togglePassword = () => setShowPassword(prev => !prev);
@@ -28,6 +20,7 @@ const Login = () => {
   const { register, handleSubmit } = useForm<LoginFormData>();
 
   const onSubmit = async (data:LoginFormData,) => {
+    setNotify({state:true,msg:'Signing in...'});
     login.mutate(data)
   };
 
@@ -63,34 +56,19 @@ const Login = () => {
     Glogin()
     setTimeout(() => {
         setNotify({msg:'',state:false})
-    }, 5000);
+    }, 3000);
   }
  
-  const setSuccessMsg = () => {
-    setMsg('Signing in...');
-  
-    // Using useEffect to handle timeouts and cleanup
-    useEffect(() => {
-      const timeout1 = setTimeout(() => {
-        setMsg('Welcome back! Redirecting...');
-      }, 5000);
-  
-      const timeout2 = setTimeout(() => {
-        setMsg('');
-      }, 10000);
-  
-      // Cleanup timeouts if the component unmounts
-      return () => {
-        clearTimeout(timeout1);
-        clearTimeout(timeout2);
-      };
-    }, []);
-  };
+
   
 
   useEffect(() => {
     if (login.isSuccess) {
-      setSuccessMsg();
+        setNotify({state:true,msg:'Welcome back! Redirecting...'});
+          
+          setTimeout(() => {
+            setNotify({state:false,msg:''})
+          }, 3000);
     }
   }, [login.isSuccess]);
 
@@ -113,11 +91,9 @@ Flowva
 </div>
 </div>
 
-<div className={`${login.isSuccess || login.isError  ? 'flex' : 'hidden'}  w-full rounded-xl p-3 mb-5 text-sm ${login.isSuccess ? 'success-msg text-success border-l-4 border-l-success' : ''} ${login.isError ? 'error-msg text-error border-l-4 border-l-error':''}`}>
-{login.isError && error} {login.isSuccess && msg}
-</div>
+
 {notify.state &&
-<div className='flex w-full rounded-xl p-3 mb-5 text-sm success-msg text-success border-l-4 border-l-success'>
+<div className={`flex w-full rounded-xl p-3 mb-5 text-sm ${!notify.error? 'success-msg text-success border-l-4 border-l-success':''} ${notify.error ? 'error-msg text-error border-l-4 border-l-error':''}`}>
     {notify.msg}
 </div>
 }
@@ -167,7 +143,7 @@ Flowva
 
 
      <div className="ml-auto mb-8">
-  <Link to="#" className="forgot text-[13px] font-medium text-gray-600 ">
+  <Link to="/forgot-password" className="forgot text-[13px] font-medium text-gray-600 ">
     Forgot password?
   </Link>
 </div>
@@ -210,9 +186,9 @@ Flowva
  
 
      </div>
-     <div className=" text-center font-medium text-sm mt-6">
+     <div className="flex justify-center items-center gap-2 text-center font-medium text-sm mt-6">
        Don't have an account? {' '}
-       <Link to="/signup" className="font-semibold text-primary">
+       <Link to="/signup"  className="font-semibold text-primary cursor-pointer">
          Signup
        </Link>
      </div>
