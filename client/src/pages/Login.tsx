@@ -34,24 +34,25 @@ const Login = () => {
   const Glogin = useGoogleLogin({      
     onSuccess: async tokenResponse => {
         const {access_token} = tokenResponse;
-        try {
-            const userInfo = await postAPI('auth/login',{access_token})
-            console.log(userInfo)
-            const {name, picture,username, email, role, id} = userInfo.data.user;
-            const doc = {
-                name,
-                picture,
-                email,
-              username,
-                role,
-                id
-            }
-            localStorage.setItem('user', JSON.stringify(doc))
-            navigate('/',{replace:true})
+        console.log(access_token, tokenResponse)
+        // try {
+        //     const userInfo = await postAPI('auth/login',{access_token})
+        //     console.log(userInfo)
+        //     const {name, picture,username, email, role, id} = userInfo.data.user;
+        //     const doc = {
+        //         name,
+        //         picture,
+        //         email,
+        //       username,
+        //         role,
+        //         id
+        //     }
+        //     localStorage.setItem('user', JSON.stringify(doc))
+        //     navigate('/',{replace:true})
 
-        } catch (error) {
-            console.log(error)
-        }
+        // } catch (error) {
+        //     console.log(error)
+        // }
         
            
     },
