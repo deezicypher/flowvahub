@@ -20,6 +20,12 @@ export interface Notify{
   msg: string; 
   error?:boolean
 }
+export interface ResetPassProps {
+  password:string;
+  password2:string;
+  token?:string;
+}
+
 export interface AuthContextProps {
   login: UseMutationResult<any,any,LoginFormData,unknown>;
   signup: UseMutationResult<any,any,SignupFormData,unknown>;
@@ -28,4 +34,5 @@ export interface AuthContextProps {
   notify: Notify;
   setNotify:Dispatch<SetStateAction<Notify>>
   setUser: Dispatch<SetStateAction<User>>;
+  resetPass: UseMutationResult<any, any, ResetPassProps, unknown>;
 }

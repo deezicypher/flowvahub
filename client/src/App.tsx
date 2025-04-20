@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPass from "./pages/ForgotPass";
+import ResetPass from "./pages/ResetPass";
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
     <Route path="/signin" element={<Login />} />
     <Route path="/signup" element={<Signup />} />
     <Route path="/forgot-password" element={<ForgotPass />} />
+    <Route path='/reset-password' element={<ResetPass/>} />
     </Routes>
     </>
   )

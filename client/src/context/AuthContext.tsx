@@ -1,6 +1,6 @@
 import React, {createContext, useContext , useState} from 'react';
 import {  useMutation } from '@tanstack/react-query';
-import { AuthContextProps, LoginFormData, SignupFormData, } from '../types';
+import { AuthContextProps, LoginFormData, ResetPassProps, SignupFormData, } from '../types';
 import { useNavigate } from 'react-router-dom';
 import { postAPI } from '../utils/fetchData';
 
@@ -95,8 +95,40 @@ export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
           },
         }
       );
+
+      const resetPass = useMutation({
+        mutationFn: async (data:ResetPassProps) => {
+          const { password,token } = data;
+            console.log(data)
+          const res = await postAPI('users/reset-password', {
+            password: password,
+            token: token,
+          });
+          return res.data;
+    
+        },
+        
+      
+          onSuccess: () => {
+            setTimeout(() => {
+                navigate('/signin');
+              }, 2000);
+          },
+          onError: (error:any) => {
+            const fallbackMessage = 'Something went wrong. Please try again.';
+            const userFriendlyMessage =
+                error?.response?.data?.error ||                 
+                fallbackMessage;                 
+                setNotify({state:true,msg:userFriendlyMessage,error:true})
+                setTimeout(() => {
+                    setNotify({state:false,msg:'',error:false})
+                }, 3000);
+              console.log(error)
+          },
+        }
+      );
       return (
-        <AuthContext.Provider value={{login,user,setUser, signup, sendPass, notify, setNotify}}>
+        <AuthContext.Provider value={{login,user,setUser, signup, sendPass, notify, setNotify, resetPass}}>
             {children}
         </AuthContext.Provider>
       )
