@@ -66,6 +66,9 @@ input, textarea, select {
   }
 }
 
+.container-bg{
+  background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+}
 .forgot:hover {
   color: var(--primary)!important;
 }
@@ -73,4 +76,15 @@ input, textarea, select {
   background-color: var(--primary-dark);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(124, 77, 255, 0.2);
+}
+.Gbtn:hover{
+  transform: translateY(-2px);
+  background-color: var(--gray-50);
+}
+
+.success-msg {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+.error-msg {
+  background-color: rgba(244, 67, 54, 0.1);
 }
