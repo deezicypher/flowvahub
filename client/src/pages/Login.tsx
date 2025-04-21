@@ -20,7 +20,7 @@ const Login = () => {
   const { register, handleSubmit } = useForm<LoginFormData>();
 
   const onSubmit = async (data:LoginFormData,) => {
-    setNotify({state:true,msg:'Signing in...'});
+    
     login.mutate(data)
   };
 
@@ -62,15 +62,7 @@ const Login = () => {
 
   
 
-  useEffect(() => {
-    if (login.isSuccess) {
-        setNotify({state:true,msg:'Welcome back! Redirecting...'});
-          
-          setTimeout(() => {
-            setNotify({state:false,msg:''})
-          }, 3000);
-    }
-  }, [login.isSuccess]);
+ 
 
   return (
     <div>

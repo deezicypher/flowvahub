@@ -48,20 +48,11 @@ const ResetPass = () => {
           }, 5000);
           return
       }
-      setNotify({state:true,msg:'Resetting your password...'})
+      
       resetPass.mutate({...data,token: token ?? undefined})
     
     }
 
-  useEffect(() => {
-    if (resetPass.isSuccess) {
-        setNotify({state:true,msg:'Password changed! Redirecting...'});
-          
-          setTimeout(() => {
-            setNotify({state:false,msg:''})
-          }, 3000);
-    }
-  }, [resetPass.isSuccess]);
     const { color, width } = getStrengthInfo();
 
   return (

@@ -52,7 +52,7 @@ const Signup = () => {
         }, 5000);
         return
     }
-    setNotify({state:true,msg:'Creating your account...'})
+    
     signup.mutate(data)
   
   }
@@ -93,14 +93,7 @@ const Signup = () => {
  
   
 
-  useEffect(() => {
-    if (signup.isSuccess) {
-        setNotify({msg:'Account created successfully! Welcome to Flowva.', state:true})
-        setTimeout(() => {
-            setNotify({state:false,msg:''})
-          }, 3000);
-    }
-  }, [signup.isSuccess]);
+  
 
   const { color, width } = getStrengthInfo();
 

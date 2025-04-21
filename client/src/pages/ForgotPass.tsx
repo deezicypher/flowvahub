@@ -10,7 +10,7 @@ const ForgotPass = () => {
 
 
   const onSubmit = async (e:any) => { 
-    setNotify({state:true,msg:'Sending reset link...'});
+   
    e.preventDefault()  
    sendPass.mutate(email)
   }
