@@ -56,6 +56,7 @@ export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
 
     const signup = useMutation({
         mutationFn: async (data : SignupFormData) => {
+            console.log(data)
 
            const res = await postAPI('users/signup',data);
            return res.data
@@ -66,12 +67,12 @@ export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
        },
          onSuccess: async (data) => {
            
-
+            console.log(data)
             setTimeout(() => {
                 setNotify({msg:data.msg, state:true})
                 setTimeout(()=>{
                   setNotify({state:false,msg:''})
-                  return navigate('/app')
+                  //return navigate('/app')
                 },3000)
               }, 3000);
         

@@ -2,8 +2,6 @@ import { check } from 'express-validator';
 import { RequestHandler } from 'express';
 
 export const validSignup: RequestHandler[] = [
-  check('name', 'Name is required').notEmpty()
-    .isLength({ min: 4, max: 32 }).withMessage('Fullname must be between 4 to 32 characters'),
   check('email')
     .isEmail()
     .withMessage('Must be a valid email address'),

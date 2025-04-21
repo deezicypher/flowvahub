@@ -43,7 +43,7 @@ export const signin = async (req:Request, res:Response) => {
   
         generateAccessToken({id:user.id},req)
         
-       res.json({user: { id:user?.id,name:user?.name,email:user?.email,}})
+       res.json({user: { id:user?.id,email:user?.email,}})
       return
       
     } catch(err:any){

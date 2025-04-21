@@ -1,9 +1,9 @@
 import express from 'express'
 import { forgotPasswordValidator, resetPasswordValidator, validLogin, validSignup } from '../middlewares/validators'
-import { signin } from '../controllers/auth/login'
-import { signup } from '../controllers/auth/signup'
-import { ResetPassword } from '../controllers/auth/reset-pass'
-import { forgetPassword } from '../controllers/auth/forgot-pass'
+import { signin } from '../controllers/user/login'
+import { signup } from '../controllers/user/signup'
+import { ResetPassword } from '../controllers/user/reset-pass'
+import { forgetPassword } from '../controllers/user/forgot-pass'
 
 const router = express.Router()
 
