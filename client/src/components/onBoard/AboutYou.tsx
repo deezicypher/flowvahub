@@ -70,7 +70,7 @@ const AboutYou:FC<StepComponentProps> = ({onNext}) => {
         
         if (formData.radioQuestion !== '' && formData.checkboxQuestion.length > 0) {
           
-            //onNext();
+            onNext();
         } 
       };
     

@@ -2,13 +2,14 @@ import { useState } from 'react'
 import Section from '../components/section';
 import Welcome from '../components/onBoard/welcome';
 import AboutYou from '../components/onBoard/AboutYou';
+import Country from '../components/onBoard/Country';
 
 
 
 
 const Onboard = () => {
   const [currentStep, setCurrentStep] = useState(1);
-  const totalSteps = 4;
+  const totalSteps = 6;
   const progress = currentStep === 1 ? 0 : ((currentStep - 1) / (totalSteps - 1)) * 100;
 
   const handleNext = () => {
@@ -22,6 +23,8 @@ const Onboard = () => {
         return <Welcome onNext={handleNext}  />;
       case 2:
         return <AboutYou onNext={handleNext} />;
+      case 3:
+        return <Country onNext={handleNext} />;
       default:
         return null;
     }

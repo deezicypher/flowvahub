@@ -52,6 +52,7 @@
   --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   --onboard-primary-light: #A29BFE;
+  --onboard-primary:#9013FE;
 }
 
 input, textarea, select {
@@ -101,4 +102,27 @@ input, textarea, select {
 .btn-onboard:hover {
   background-color: var(--onboard-primary-light);
   transform: translateY(-2px);
+}
+
+.select{
+  width: 100%;
+border: 1px solid #ddd;
+border-radius: 6px;
+font-size: 1rem;
+transition: border 0.3s ease;
+appearance: menulist;
+align-items: center;
+white-space: pre;
+-webkit-rtl-ordering: logical;
+cursor: default;
+
+}
+
+select:focus {
+  border-color: var(--onboard-primary);
+  outline: none;
+  }
+
+.skip:hover{
+  color: var(--color-onboard-primary);
 }
