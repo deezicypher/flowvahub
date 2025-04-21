@@ -13,15 +13,20 @@
   --color-gray-600: #757575;
   --color-gray-700: #616161;
   --shadow-custom-focus: 0 0 0 3px rgba(124, 77, 255, 0.2);
+  --color-custombg: linear-gradient(135deg, #EDE7F6 0%, #f5f5fa 100%);
+  --color-onboard-primary:#9013FE;
+  --color-onboard-dark:#2D3436;
+  --color---onboard-primary-light: #A29BFE;
 }
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
+  height: 100%;
+  margin: 0;
   color-scheme: light dark;
-  background: linear-gradient(135deg, #EDE7F6 0%, #f5f5fa 100%);
+ 
   color: #616161;
 
   font-synthesis: none;
@@ -46,6 +51,7 @@
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
   --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --onboard-primary-light: #A29BFE;
 }
 
 input, textarea, select {
@@ -87,4 +93,12 @@ input, textarea, select {
 }
 .error-msg {
   background-color: rgba(244, 67, 54, 0.1);
+}
+
+.btn-onboard {
+  transition: all 0.3s ease;
+}
+.btn-onboard:hover {
+  background-color: var(--onboard-primary-light);
+  transform: translateY(-2px);
 }
