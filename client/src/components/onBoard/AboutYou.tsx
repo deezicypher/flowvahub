@@ -56,10 +56,11 @@ const AboutYou:FC<StepComponentProps> = ({onNext}) => {
     
       // Checkbox options
       const checkboxOptions = [
-        { id: 'javascript', label: 'JavaScript' },
-        { id: 'typescript', label: 'TypeScript' },
-        { id: 'python', label: 'Python' },
-        { id: 'java', label: 'Java' }
+        { id: 'design', label: 'Design' },
+        { id: 'development', label: 'Development' },
+        { id: 'writing', label: 'Writing' },
+        { id: 'marketing', label: 'Marketing' },
+        { id: 'other', label: 'Other' }
       ];
   return (
     <div>
