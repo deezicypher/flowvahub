@@ -109,7 +109,7 @@ Flowva
            autoComplete="email"
            {...register('email')}
            required
-           className="w-full bg-gray-50 rounded-xl border mt-2 border-gray-300 px-[16px] py-[10px] text-gray-900 font-medium placeholder-gray-400 placeholder-font-extralight focus:z-10 focus:!border-[#7C4DFF] focus:outline-none focus:ring-0 focus:ring-offset-0 focus:bg-white focus:shadow-custom-focus sm:text-sm appearance-none"
+           className="w-full bg-gray-50 rounded-xl border mt-2 border-gray-300 px-[16px] py-[10px] text-gray-900 font-medium placeholder-gray-400 placeholder-font-extralight focus:z-10 focus:border-primary focus:outline-none focus:ring-0 focus:ring-offset-0 focus:bg-white focus:shadow-custom-focus sm:text-sm appearance-none"
            
            placeholder="you@example.com"
          />

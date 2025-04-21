@@ -10,12 +10,16 @@ type StepComponentProps = {
   type FormData = {
     radioQuestion: string;
     checkboxQuestion: string[];
+    showOtherInput:boolean;
+    other:string;
   };
 
 const AboutYou:FC<StepComponentProps> = ({onNext}) => {
     const [formData, setFormData] = useState<FormData>({
         radioQuestion: '',
-        checkboxQuestion: []
+        checkboxQuestion: [],
+        showOtherInput:false,
+        other:''
       });
   
 
@@ -27,19 +31,35 @@ const AboutYou:FC<StepComponentProps> = ({onNext}) => {
       };
 
       const handleCheckboxChange = (optionId: string, checked: boolean) => {
-        if (checked) {
+        if (optionId === 'other') {
+          // Only the "other" checkbox affects the showOtherInput property
           setFormData({
             ...formData,
-            checkboxQuestion: [...formData.checkboxQuestion, optionId]
+            showOtherInput: checked, // Show/hide based on the other checkbox
+            checkboxQuestion: checked 
+              ? [...formData.checkboxQuestion.filter(item => item !== 'other'), 'other'] // Add 'other'
+              : formData.checkboxQuestion.filter(item => item !== 'other') // Remove 'other'
           });
         } else {
+          // Regular options don't affect the Other input visibility
           setFormData({
             ...formData,
-            checkboxQuestion: formData.checkboxQuestion.filter(item => item !== optionId)
+            // Maintain the showOtherInput value
+            checkboxQuestion: checked
+              ? [...formData.checkboxQuestion, optionId] // Add this option
+              : formData.checkboxQuestion.filter(item => item !== optionId) // Remove this option
           });
         }
       };
  
+      const handleOtherChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({
+          ...formData,
+          other: e.target.value,
+          showOtherInput:true
+        });
+      };
+
       const isCheckboxChecked = (optionId: string): boolean => {
         return formData.checkboxQuestion.includes(optionId);
       };
@@ -47,21 +67,14 @@ const AboutYou:FC<StepComponentProps> = ({onNext}) => {
       const handleSubmit = (e: FormEvent) => {
         e.preventDefault(); // Prevent default form submission behavior
         
-        // Check if radio button has been selected (not empty)
-        // AND checkbox array has at least one item
+        
         if (formData.radioQuestion !== '' && formData.checkboxQuestion.length > 0) {
-          onNext();
+          
+            //onNext();
         } 
       };
     
-      // Checkbox options
-      const checkboxOptions = [
-        { id: 'design', label: 'Design' },
-        { id: 'development', label: 'Development' },
-        { id: 'writing', label: 'Writing' },
-        { id: 'marketing', label: 'Marketing' },
-        { id: 'other', label: 'Other' }
-      ];
+ 
   return (
     <div>
     <div className=' min-h-[450px] flex flex-col '>
@@ -188,22 +201,22 @@ const AboutYou:FC<StepComponentProps> = ({onNext}) => {
           </div>
 
           <div className="mb-6">
-          <p className="text-base mb-3 font-extrabold text-onboard-dark">What kind of work do you do? Please select at least one option</p>
+          <p className="text-base mb-3 font-extrabold text-onboard-dark">What kind of work do you do? </p>
           
           <div className="space-y-2">
-            {checkboxOptions.map(option => (
-              <div key={option.id} className="flex items-center mb-4">
+            
+              <div  className="flex items-center mb-4">
                 <div className="relative flex items-center justify-center">
                   <input
                     type="checkbox"
-                    id={`checkbox-${option.id}`}
-                    name={`checkbox-${option.id}`}
-                    checked={isCheckboxChecked(option.id)}
-                    onChange={(e) => handleCheckboxChange(option.id, e.target.checked)}
+                    id="design"
+                    name="design"
+                    checked={isCheckboxChecked('design')}
+                    onChange={(e) => handleCheckboxChange('design', e.target.checked)}
                     className="w-5 h-5 opacity-0 absolute"
                   />
-                  <div className={`w-4 h-4 rounded border border-gray-400 flex items-center justify-center ${isCheckboxChecked(option.id) ? "bg-blue-500 border-blue-500" : "bg-white"}`}>
-                    {isCheckboxChecked(option.id) && (
+                  <div className={`w-4 h-4 rounded border border-gray-400 flex items-center justify-center ${isCheckboxChecked('design') ? "bg-blue-500 border-blue-500" : "bg-white"}`}>
+                    {isCheckboxChecked('design') && (
                       <svg className="w-3 h-3 text-white" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                       </svg>
@@ -211,13 +224,129 @@ const AboutYou:FC<StepComponentProps> = ({onNext}) => {
                   </div>
                 </div>
                 <label 
-                  htmlFor={`checkbox-${option.id}`} 
+                  htmlFor="design" 
                   className="ml-2 font-medium text-onboard-dark cursor-pointer"
                 >
-                  {option.label}
+                  Design
                 </label>
               </div>
-            ))}
+
+              <div  className="flex items-center mb-4">
+                <div className="relative flex items-center justify-center">
+                  <input
+                    type="checkbox"
+                    id="development"
+                    name="development"
+                    checked={isCheckboxChecked('development')}
+                    onChange={(e) => handleCheckboxChange('development', e.target.checked)}
+                    className="w-5 h-5 opacity-0 absolute"
+                  />
+                  <div className={`w-4 h-4 rounded border border-gray-400 flex items-center justify-center ${isCheckboxChecked('development') ? "bg-blue-500 border-blue-500" : "bg-white"}`}>
+                    {isCheckboxChecked('development') && (
+                      <svg className="w-3 h-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <label 
+                  htmlFor="development" 
+                  className="ml-2 font-medium text-onboard-dark cursor-pointer"
+                >
+                  Development
+                </label>
+              </div>
+
+              <div  className="flex items-center mb-4">
+                <div className="relative flex items-center justify-center">
+                  <input
+                    type="checkbox"
+                    id="writing"
+                    name="writing"
+                    checked={isCheckboxChecked('writing')}
+                    onChange={(e) => handleCheckboxChange('writing', e.target.checked)}
+                    className="w-5 h-5 opacity-0 absolute"
+                  />
+                  <div className={`w-4 h-4 rounded border border-gray-400 flex items-center justify-center ${isCheckboxChecked('writing') ? "bg-blue-500 border-blue-500" : "bg-white"}`}>
+                    {isCheckboxChecked('writing') && (
+                      <svg className="w-3 h-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <label 
+                  htmlFor="writing" 
+                  className="ml-2 font-medium text-onboard-dark cursor-pointer"
+                >
+                  Writing
+                </label>
+              </div>
+   
+              <div  className="flex items-center mb-4">
+                <div className="relative flex items-center justify-center">
+                  <input
+                    type="checkbox"
+                    id="marketing"
+                    name="marketing"
+                    checked={isCheckboxChecked('marketing')}
+                    onChange={(e) => handleCheckboxChange('marketing', e.target.checked)}
+                    className="w-5 h-5 opacity-0 absolute"
+                  />
+                  <div className={`w-4 h-4 rounded border border-gray-400 flex items-center justify-center ${isCheckboxChecked('marketing') ? "bg-blue-500 border-blue-500" : "bg-white"}`}>
+                    {isCheckboxChecked('marketing') && (
+                      <svg className="w-3 h-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <label 
+                  htmlFor="marketing" 
+                  className="ml-2 font-medium text-onboard-dark cursor-pointer"
+                >
+                  Marketing
+                </label>
+              </div>
+
+              <div  className="flex items-center mb-4">
+                <div className="relative flex items-center justify-center">
+                  <input
+                    type="checkbox"
+                    id="other"
+                    name="other"
+                    checked={isCheckboxChecked('other')}
+                    onChange={(e) => handleCheckboxChange('other', e.target.checked)}
+                    className="w-5 h-5 opacity-0 absolute"
+                  />
+                  <div className={`w-4 h-4 rounded border border-gray-400 flex items-center justify-center ${isCheckboxChecked('other') ? "bg-blue-500 border-blue-500" : "bg-white"}`}>
+                    {isCheckboxChecked('other') && (
+                      <svg className="w-3 h-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <label 
+                  htmlFor="other" 
+                  className="ml-2 font-medium text-onboard-dark cursor-pointer"
+                >
+                  Other
+                </label>
+                {formData.showOtherInput && (
+                <div className="ml-2 mt-2">
+                  <input
+                    type="text"
+                    value={formData.other}
+                    onChange={handleOtherChange}
+                    placeholder="Please specify"
+                    className="px-3 py-2 border border-gray-300 focus:border-primary focus:shadow-custom-focus rounded-md w-full"
+                  />
+                </div>
+              )}
+              </div>
+
+           
           </div>
         </div>
 
