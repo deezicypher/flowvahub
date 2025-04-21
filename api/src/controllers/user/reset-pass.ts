@@ -33,7 +33,7 @@ export const ResetPassword = async (req:Request, res:Response) => {
   
       // use await to wait for the result of the query
        await pool.query(q,[hashedPass,id])
-       res.json({msg: "Password Reset Successful"})
+       res.json({msg: "Password Reset Successful. Redirecting..."})
        return;
     }catch(err:any) {
       console.log(err)

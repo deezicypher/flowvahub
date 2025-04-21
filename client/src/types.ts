@@ -29,7 +29,7 @@ export interface ResetPassProps {
 export interface AuthContextProps {
   login: UseMutationResult<any,any,LoginFormData,unknown>;
   signup: UseMutationResult<any,any,SignupFormData,unknown>;
-  sendPass: UseMutationResult<any,any,string,unknown>;
+  forgotPass: UseMutationResult<any,any,string,unknown>;
   user: User;
   notify: Notify;
   setNotify:Dispatch<SetStateAction<Notify>>

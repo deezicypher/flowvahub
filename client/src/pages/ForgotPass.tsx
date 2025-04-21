@@ -1,4 +1,4 @@
-import {useEffect, useState } from 'react'
+import {useState } from 'react'
 import Section from '../components/section'
 import { useAuthContext } from '../context/AuthContext'
 import { Link } from 'react-router-dom'
@@ -6,24 +6,16 @@ import { Link } from 'react-router-dom'
 
 const ForgotPass = () => {
   const [email, setEmail] = useState<string>('')
-  const {sendPass,notify,setNotify} = useAuthContext()
+  const {forgotPass,notify} = useAuthContext()
 
 
   const onSubmit = async (e:any) => { 
    
    e.preventDefault()  
-   sendPass.mutate(email)
+   forgotPass.mutate(email)
   }
 
-    useEffect(() => {
-      if (sendPass.isSuccess) {
-        setNotify({state:true,msg:'Reset link sent to your email.'});
-          
-          setTimeout(() => {
-            setNotify({state:false,msg:''})
-          }, 3000);
-      }
-    }, [sendPass.isSuccess]);
+    
 
   return (
        <div>

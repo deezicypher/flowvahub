@@ -35,8 +35,8 @@ export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
               setTimeout(()=>{
                 setNotify({state:false,msg:''})
                 return navigate('/app')
-              },3000)
-            }, 3000);
+              },2000)
+            }, 2000);
                 
           },
           onError: (error: any) => {
@@ -66,15 +66,14 @@ export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
         setNotify({state:true,msg:'Creating your account...'})
        },
          onSuccess: async (data) => {
-           
-            console.log(data)
+
             setTimeout(() => {
                 setNotify({msg:data.msg, state:true})
                 setTimeout(()=>{
                   setNotify({state:false,msg:''})
                   //return navigate('/app')
-                },3000)
-              }, 3000);
+                },2000)
+              }, 2000);
         
          },
          onError: async (error:any) => {
@@ -92,22 +91,22 @@ export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
        }
      )
 
-     const sendPass = useMutation({
+     const forgotPass = useMutation({
         mutationFn: async (forgotEmail:string) => {
           
-            const res = await postAPI('users/forgot-password', { forgotEmail });
+            const res = await postAPI('users/forgot-password', { email:forgotEmail });
             return res.data;
      
         },
         onMutate: () => {
-            setNotify({state:true,msg:'Resetting your password...'})
+            setNotify({state:true,msg:'Sending reset link...'});
             
           },
           onSuccess: (data) => {
             setNotify({state:true,msg:data.msg});
             setTimeout(() => {
                 setNotify({state:false,msg:'',error:false})
-            }, 3000);
+            }, 2000);
           },
           onError: (error:any) => {
             
@@ -138,13 +137,20 @@ export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
     
         },
         onMutate: () => {
-            setNotify({state:true,msg:'Sending reset link...'});
+            setNotify({state:true,msg:'Resetting your password...'})
+            
         },
         
-          onSuccess: () => {
+          onSuccess: (data) => {
+            
             setTimeout(() => {
-                navigate('/signin');
-              }, 2000);
+                setNotify({state:true,msg:data.msg});
+                setTimeout(() => {
+                    setNotify({state:false,msg:'',error:false})
+                    navigate('/signin')
+                },2000)
+            }, 2000);
+       
           },
           onError: (error:any) => {
             const fallbackMessage = 'Something went wrong. Please try again.';
@@ -160,7 +166,7 @@ export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
         }
       );
       return (
-        <AuthContext.Provider value={{login,user,setUser, signup, sendPass, notify, setNotify, resetPass}}>
+        <AuthContext.Provider value={{login,user,setUser, signup, forgotPass, notify, setNotify, resetPass}}>
             {children}
         </AuthContext.Provider>
       )

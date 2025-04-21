@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react'
+import  { useState } from 'react'
 import { useForm } from "react-hook-form"
 import { Link, useLocation } from 'react-router-dom'
 import Section from '../components/section'
@@ -48,7 +48,7 @@ const ResetPass = () => {
           }, 5000);
           return
       }
-      
+  
       resetPass.mutate({...data,token: token ?? undefined})
     
     }
@@ -75,15 +75,16 @@ Flowva
 </div>
 
 
+
+
+
+<div className='text-2xl text-gray-700 font-semibold mb-8'>Reset your password</div>
+
 {notify.state &&
 <div className={`flex w-full rounded-xl p-3 mb-5 text-sm ${!notify.error? 'success-msg text-success border-l-4 border-l-success':''} ${notify.error ? 'error-msg text-error border-l-4 border-l-error':''}`}>
     {notify.msg}
 </div>
 }
-
-
-<div className='text-2xl text-gray-700 font-semibold mb-8'>Reset your password</div>
-
 
 </div>
    <form className="sm:mt-10 space-y-6" onSubmit={handleSubmit(onSubmit)} >

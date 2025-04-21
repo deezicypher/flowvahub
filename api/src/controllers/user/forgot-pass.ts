@@ -9,9 +9,11 @@ const CLIENT_URL = `${process.env.CLIENT_URL}`
 export const forgetPassword = async (req:Request, res:Response):Promise<void> => {
  
     const {email} = req.body;
+
     const errors = validationResult(req)
     if(!errors.isEmpty()){
       const firstError = errors.array().map(err => err.msg)[0]
+      
       res.status(422).json({error:firstError})
       return;
     }
@@ -31,7 +33,8 @@ export const forgetPassword = async (req:Request, res:Response):Promise<void> =>
     const active_token = generateActiveToken({id:user.id})
     // generate activation url
   
-    const url = `${CLIENT_URL}/resetpassword?token=${active_token}`
+    const url = `${CLIENT_URL}/reset-password?token=${active_token}`
+    console.log(url)
     // Send Email
     ResetPass(email,url,"Reset Password",res, email)
     return

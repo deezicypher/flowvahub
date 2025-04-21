@@ -10,7 +10,7 @@ const router = express.Router()
 
 router.post('/signup',validSignup,signup)
 router.post('/signin',validLogin, signin)
-router.post('/forgotpassword',forgotPasswordValidator, forgetPassword)
-router.post('/resetpassword',resetPasswordValidator, ResetPassword)
+router.post('/forgot-password',forgotPasswordValidator, forgetPassword)
+router.post('/reset-password',resetPasswordValidator, ResetPassword)
 
 export default router
