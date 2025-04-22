@@ -1,12 +1,12 @@
-import { FC, FormEvent, useState } from 'react'
+import { Dispatch, FC, FormEvent, SetStateAction, useState } from 'react'
+import { Data } from '../../types';
+
 
 type StepComponentProps = {
     onNext: () => void;
+    setData: Dispatch<SetStateAction<Data>>
   };
 
- 
-  
- 
   type FormData = {
     radioQuestion: string;
     checkboxAnswers: string[];
@@ -14,7 +14,7 @@ type StepComponentProps = {
     other:string;
   };
 
-const AboutYou:FC<StepComponentProps> = ({onNext}) => {
+const AboutYou:FC<StepComponentProps> = ({onNext,setData}) => {
     const [formData, setFormData] = useState<FormData>({
         radioQuestion: '',
         checkboxAnswers: [],
@@ -67,9 +67,14 @@ const AboutYou:FC<StepComponentProps> = ({onNext}) => {
       const handleSubmit = (e: FormEvent) => {
         e.preventDefault(); // Prevent default form submission behavior
         
-        console.log(formData)
+       
         if (formData.radioQuestion !== '' && formData.checkboxAnswers.length > 0) {
-          
+            const checkboxAns = formData.checkboxAnswers.filter(item => item !== 'other')
+            if(formData.showOtherInput ) {
+                checkboxAns.push(formData.other)
+            }
+            setData(prev => ({...prev,describesYou:formData.radioQuestion,workYoudo:checkboxAns}))
+            
             onNext();
         } 
       };

@@ -2,6 +2,7 @@ import express,{NextFunction, Request, Response} from 'express'
 import cookieSession from 'cookie-session'
 import cors from 'cors';
 import userRoute from './routes/user'
+import ProfileRoute from './routes/profile'
 import pool from './config/db'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -19,6 +20,7 @@ app.use(cookieSession({
   }))
 
   app.use('/api/users', userRoute)
+  app.use('/api/profile', ProfileRoute)
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
@@ -34,8 +36,17 @@ const connectDB = async () => {
       "email" varchar NOT NULL,
       "password" varchar NOT NULL,
       "created_at" timestamptz NOT NULL DEFAULT (now())
-    );`);
-    console.log("Created Table users")
+    );
+       CREATE TABLE IF NOT EXISTS "profile" (
+      "id" SERIAL PRIMARY KEY,
+      "describesYou" text NOT NULL,
+      "workYouDo" text[] NOT NULL,
+      "country" varchar,
+      "stack" text[],
+      "goals" text[]
+    ) 
+    `);
+    console.log("Created Table users and profile")
   }catch (err:any) {
     console.error("Error connecting to DB:", err.message); 
     process.exit(1); 

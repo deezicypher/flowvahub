@@ -1,8 +1,12 @@
-import { FC, FormEvent, useState } from "react";
+import { Dispatch, FC, FormEvent, SetStateAction, useState } from "react";
+import { Data } from "../../types";
+import { postAPI } from "../../utils/fetchData";
 
 
 type StepComponentProps = {
     onNext: () => void;
+    setData: Dispatch<SetStateAction<Data>>;
+    data:Data;
   };
 
  
@@ -12,7 +16,7 @@ type StepComponentProps = {
     checkboxAnswers: string[];
   };
 
-const Personalize:FC<StepComponentProps> = ({onNext}) => {
+const Personalize:FC<StepComponentProps> = ({onNext,setData,data}) => {
        const [formData, setFormData] = useState<FormData>({
         checkboxAnswers: []
        });
@@ -38,12 +42,13 @@ const Personalize:FC<StepComponentProps> = ({onNext}) => {
       };
 
           
-            const handleSubmit = (e: FormEvent) => {
+            const handleSubmit = async (e: FormEvent) => {
               e.preventDefault(); // Prevent default form submission behavior
    
               if ( formData.checkboxAnswers.length > 0) {
-                
-                  onNext();
+                    setData(prev=>({...prev,goals:formData.checkboxAnswers}))
+                     await postAPI('profile/onboard',{...data})
+                    onNext();
               } 
             };
 

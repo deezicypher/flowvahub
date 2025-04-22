@@ -1,11 +1,13 @@
-import { FC,  useRef, useState } from 'react'
+import { Dispatch, FC,  SetStateAction,  useRef, useState } from 'react'
+import { Data } from '../../types';
 
 type StepComponentProps = {
     onNext: () => void;
+     setData: Dispatch<SetStateAction<Data>>;
   };
 
 
-const ToolStack:FC<StepComponentProps> = ({onNext}) => {
+const ToolStack:FC<StepComponentProps> = ({onNext,setData}) => {
    
     const boxOneRef = useRef<HTMLDivElement>(null);
     const boxTwoRef = useRef<HTMLDivElement>(null);
@@ -35,10 +37,13 @@ const ToolStack:FC<StepComponentProps> = ({onNext}) => {
           setSelectedItems((prev) => [...prev, name]);
         }
       };
-      
+
+      const handleNext = () => {
+        setData(prev => ({...prev,stack:selectedItems}))
+        onNext()
+      }
   
-    // For debugging or saving selected items
-    console.log('Selected items:', selectedItems);
+
   return (
  <div>
     <div className=' min-h-[450px]  flex flex-col '>
@@ -117,10 +122,10 @@ const ToolStack:FC<StepComponentProps> = ({onNext}) => {
 
     </div>
     <div className="flex w-full items-center gap-5">
-    <div onClick={onNext} className='btn-onboard bg-onboard-primary rounded-xl w-4/5 cursor-pointer text-white text-lg py-2 px-6 font-bold text-center'>
+    <div onClick={handleNext} className='btn-onboard bg-onboard-primary rounded-xl w-4/5 cursor-pointer text-white text-lg py-2 px-6 font-bold text-center'>
             Continue
         </div>
-        <p onClick={onNext} className="skip cursor-pointer text-sm w-50">Skip- I'll do them later</p>
+        <p onClick={handleNext} className="skip cursor-pointer text-sm w-50">Skip- I'll do them later</p>
         </div>
     </div>
   )

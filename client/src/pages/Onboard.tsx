@@ -1,16 +1,24 @@
 import { useState } from 'react'
 import Section from '../components/section';
-import Welcome from '../components/onBoard/welcome';
 import AboutYou from '../components/onBoard/AboutYou';
 import Country from '../components/onBoard/Country';
 import ToolStack from '../components/onBoard/ToolStack';
 import Personalize from '../components/onBoard/Personalize';
 import Complete from '../components/onBoard/Complete';
+import Welcome from '../components/onBoard/Welcome';
+import { Data } from '../types';
 
 
 
 
 const Onboard = () => {
+  const [data, setData] = useState<Data>({
+    describesYou:'',
+    workYoudo:[],
+    country:'',
+    stack:[],
+    goals:[]
+  })
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = 6;
   const progress = currentStep === 1 ? 0 : ((currentStep - 1) / (totalSteps - 1)) * 100;
@@ -25,13 +33,13 @@ const Onboard = () => {
       case 1:
         return <Welcome onNext={handleNext}  />;
       case 2:
-        return <AboutYou onNext={handleNext} />;
+        return <AboutYou onNext={handleNext} setData={setData}  />;
       case 3:
-        return <Country onNext={handleNext} />;
+        return <Country setData={setData} onNext={handleNext} />;
       case 4:
-        return <ToolStack onNext={handleNext} />;
+        return <ToolStack setData={setData}  onNext={handleNext} />;
       case 5:
-        return <Personalize onNext={handleNext} />;
+        return <Personalize onNext={handleNext} setData={setData} data={data} />;
       case 6:
         return <Complete  />;
       default:

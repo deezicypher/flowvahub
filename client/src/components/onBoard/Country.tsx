@@ -1,18 +1,25 @@
-import { FC, useState } from "react";
+import { Dispatch, FC, SetStateAction, useState } from "react";
 import arrow from '../../assets/up-and-down.svg'
+import { Data } from "../../types";
 
 type StepComponentProps = {
     onNext: () => void;
+    setData: Dispatch<SetStateAction<Data>>;
   };
 
 
-const Country:FC<StepComponentProps> = ({onNext}) => {
+const Country:FC<StepComponentProps> = ({onNext,setData}) => {
     const [selectedCountry, setSelectedCountry] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCountry(e.target.value);
-    console.log("Selected country:", e.target.value);
+  
   };
+
+  const handleNext = () => {
+    setData(prev => ({...prev,country:selectedCountry}))
+    onNext()
+  }
   return (
 
            <div>
@@ -52,10 +59,10 @@ const Country:FC<StepComponentProps> = ({onNext}) => {
             </div>
     </div>
     <div className="flex items-center gap-5">
-    <div onClick={onNext} className='btn-onboard bg-onboard-primary rounded-xl w-3/4 cursor-pointer text-white text-lg py-2 px-6 font-bold text-center'>
+    <div onClick={handleNext} className='btn-onboard bg-onboard-primary rounded-xl w-3/4 cursor-pointer text-white text-lg py-2 px-6 font-bold text-center'>
             Continue
         </div>
-        <p onClick={onNext} className="skip cursor-pointer text-sm">Skip this step</p>
+        <p onClick={handleNext} className="skip cursor-pointer text-sm">Skip this step</p>
         </div>
     </div>
   )

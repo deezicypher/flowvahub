@@ -36,3 +36,7 @@ export interface AuthContextProps {
   setUser: Dispatch<SetStateAction<User>>;
   resetPass: UseMutationResult<any, any, ResetPassProps, unknown>;
 }
+
+export interface Data {
+  [key:string]: string | string [];
+}
