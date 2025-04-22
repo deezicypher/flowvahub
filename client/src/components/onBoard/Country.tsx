@@ -28,7 +28,7 @@ const Country:FC<StepComponentProps> = ({onNext}) => {
     name="country"
     value={selectedCountry}
     onChange={handleChange}
-    className="w-full appearance-none bg-white px-2  text-onboard-dark font-medium border border-gray-300 rounded focus:border-onboard-primary"
+    className="w-full appearance-none bg-white px-2  text-black font-medium border border-gray-300 rounded focus:border-onboard-primary"
     style={{ boxShadow: "inset 0 2px 10px 0 rgba(0, 0, 0, 0.15)" }}
   >
     <option value="">Select your country</option>
@@ -55,7 +55,7 @@ const Country:FC<StepComponentProps> = ({onNext}) => {
     <div onClick={onNext} className='btn-onboard bg-onboard-primary rounded-xl w-3/4 cursor-pointer text-white text-lg py-2 px-6 font-bold text-center'>
             Continue
         </div>
-        <p className="skip cursor-pointer text-sm">Skip this step</p>
+        <p onClick={onNext} className="skip cursor-pointer text-sm">Skip this step</p>
         </div>
     </div>
   )

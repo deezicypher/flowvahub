@@ -5,6 +5,7 @@ import AboutYou from '../components/onBoard/AboutYou';
 import Country from '../components/onBoard/Country';
 import ToolStack from '../components/onBoard/ToolStack';
 import Personalize from '../components/onBoard/Personalize';
+import Complete from '../components/onBoard/Complete';
 
 
 
@@ -31,6 +32,8 @@ const Onboard = () => {
         return <ToolStack onNext={handleNext} />;
       case 5:
         return <Personalize onNext={handleNext} />;
+      case 6:
+        return <Complete  />;
       default:
         return null;
     }

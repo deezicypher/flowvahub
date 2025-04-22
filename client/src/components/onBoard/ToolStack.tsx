@@ -50,21 +50,21 @@ const ToolStack:FC<StepComponentProps> = ({onNext}) => {
         onClick={() => toggleSelection(boxOneRef, 'Notion')} className="   border text-onboard-dark border-[#ddd] rounded-xl p-4  cursor-pointer stack  ">
         <div  className='flex flex-col items-center'>
         📝
-        <p className='font-semibold'>Notion</p>
+        <p className='font-medium'>Notion</p>
         </div>
     </div>
     <div ref={boxTwoRef}
         onClick={() => toggleSelection(boxTwoRef, 'Trello')} className=" border text-onboard-dark border-[#ddd] rounded-xl p-4  cursor-pointer stack  ">
         <div  className='flex flex-col items-center'>
         📋
-        <p className='font-semibold'>Trello</p>
+        <p className='font-medium'>Trello</p>
         </div>
     </div>
     <div ref={boxThreeRef}
         onClick={() => toggleSelection(boxThreeRef, 'Slack')} className="  border text-onboard-dark border-[#ddd] rounded-xl p-4  cursor-pointer stack  ">
         <div  className='flex flex-col items-center'>
         💬
-        <p className='font-semibold'>Slack</p>
+        <p className='font-medium'>Slack</p>
         </div>
     </div>
 
@@ -72,42 +72,42 @@ const ToolStack:FC<StepComponentProps> = ({onNext}) => {
         onClick={() => toggleSelection(boxFourRef, 'ClickUp')} className="  border text-onboard-dark border-[#ddd] rounded-xl p-4  cursor-pointer stack  ">
         <div  className='flex flex-col items-center'>
         ✅
-        <p className='font-semibold'>ClickUp</p>
+        <p className='font-medium'>ClickUp</p>
         </div>
     </div>
     <div ref={boxFiveRef}
         onClick={() => toggleSelection(boxFiveRef, 'Canva')} className="  border text-onboard-dark border-[#ddd] rounded-xl p-4  cursor-pointer stack  ">
         <div  className='flex flex-col items-center'>
         🎨
-        <p className='font-semibold'>Canva</p>
+        <p className='font-medium'>Canva</p>
         </div>
     </div>
     <div ref={boxSixRef}
         onClick={() => toggleSelection(boxSixRef, 'Zapier')} className="  border text-onboard-dark border-[#ddd] rounded-xl p-4  cursor-pointer stack  ">
         <div  className='flex flex-col items-center'>
         ⚡
-        <p className='font-semibold'>Zapier</p>
+        <p className='font-medium'>Zapier</p>
         </div>
     </div>
     <div ref={boxSevenRef}
         onClick={() => toggleSelection(boxSevenRef, 'Stripe')} className="  border text-onboard-dark border-[#ddd] rounded-xl p-4  cursor-pointer stack  ">
         <div  className='flex flex-col items-center'>
         💳
-        <p className='font-semibold'>Stripe</p>
+        <p className='font-medium'>Stripe</p>
         </div>
     </div>
     <div ref={boxEightRef}
         onClick={() => toggleSelection(boxEightRef, 'Figma')} className="  border text-onboard-dark border-[#ddd] rounded-xl p-4  cursor-pointer stack  ">
         <div  className='flex flex-col items-center'>
         ✏️
-        <p className='font-semibold'>Figma</p>
+        <p className='font-medium'>Figma</p>
         </div>
     </div>
     <div ref={boxNineRef}
         onClick={() => toggleSelection(boxNineRef, 'Calendly')} className="  border text-onboard-dark border-[#ddd] rounded-xl p-4  cursor-pointer stack  ">
         <div  className='flex flex-col items-center'>
         📅
-        <p className='font-semibold'>Calendly</p>
+        <p className='font-medium'>Calendly</p>
         </div>
 
 
@@ -120,7 +120,7 @@ const ToolStack:FC<StepComponentProps> = ({onNext}) => {
     <div onClick={onNext} className='btn-onboard bg-onboard-primary rounded-xl w-4/5 cursor-pointer text-white text-lg py-2 px-6 font-bold text-center'>
             Continue
         </div>
-        <p className="skip cursor-pointer text-sm w-50">Skip- I'll do them later</p>
+        <p onClick={onNext} className="skip cursor-pointer text-sm w-50">Skip- I'll do them later</p>
         </div>
     </div>
   )
