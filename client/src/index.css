@@ -16,7 +16,7 @@
   --color-custombg: linear-gradient(135deg, #EDE7F6 0%, #f5f5fa 100%);
   --color-onboard-primary:#9013FE;
   --color-onboard-dark:#2D3436;
-  --color---onboard-primary-light: #A29BFE;
+  --color-onboard-primary-light: #A29BFE;
 }
 
 :root {
@@ -125,4 +125,9 @@ select:focus {
 
 .skip:hover{
   color: var(--color-onboard-primary);
+}
+
+.stack:hover{
+  border-color: var(--onboard-primary);
+  transform: translateY(-2px);
 }

@@ -3,6 +3,7 @@ import Section from '../components/section';
 import Welcome from '../components/onBoard/welcome';
 import AboutYou from '../components/onBoard/AboutYou';
 import Country from '../components/onBoard/Country';
+import ToolStack from '../components/onBoard/ToolStack';
 
 
 
@@ -25,6 +26,8 @@ const Onboard = () => {
         return <AboutYou onNext={handleNext} />;
       case 3:
         return <Country onNext={handleNext} />;
+      case 4:
+        return <ToolStack onNext={handleNext} />;
       default:
         return null;
     }
