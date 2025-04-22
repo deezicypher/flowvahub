@@ -1,8 +1,8 @@
-import React, {createContext, useContext , useState} from 'react';
+import React, {createContext, useContext , useEffect, useState} from 'react';
 import {  useMutation } from '@tanstack/react-query';
 import { AuthContextProps, LoginFormData, ResetPassProps, SignupFormData, } from '../types';
 import { useNavigate } from 'react-router-dom';
-import { postAPI } from '../utils/fetchData';
+import { getAPI, postAPI } from '../utils/fetchData';
 
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined)
@@ -34,7 +34,7 @@ export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
               setNotify({state:true,msg:'Welcome back! Redirecting...'});
               setTimeout(()=>{
                 setNotify({state:false,msg:''})
-                return navigate('/app')
+                return navigate('/Onboard')
               },2000)
             }, 2000);
                 
@@ -66,12 +66,12 @@ export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
         setNotify({state:true,msg:'Creating your account...'})
        },
          onSuccess: async (data) => {
-
+          setUser(data.user)
             setTimeout(() => {
                 setNotify({msg:data.msg, state:true})
                 setTimeout(()=>{
                   setNotify({state:false,msg:''})
-                  //return navigate('/app')
+                  return navigate('/Onboard')
                 },2000)
               }, 2000);
         
@@ -165,6 +165,23 @@ export const AuthContextProvider = ({children}:{children:React.ReactNode})=>{
           },
         }
       );
+
+      const authCheckState = useMutation({
+        mutationFn: async() => {
+          const res = await getAPI('users/currentuser')
+          return res.data
+        },
+        onSuccess:(data)=>{
+          setUser(data.user)
+        },
+        onError:(error:any) => {
+          console.log(error)
+        }
+      })
+      
+      useEffect(() => {
+        authCheckState.mutate();
+      }, []);
       return (
         <AuthContext.Provider value={{login,user,setUser, signup, forgotPass, notify, setNotify, resetPass}}>
             {children}

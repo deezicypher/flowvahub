@@ -1,4 +1,4 @@
-import {Request,Response} from 'express'
+import {request, Request,Response} from 'express'
 import {validationResult} from 'express-validator'
 import pool from '../../config/db';
 import bcrypt from 'bcrypt'
@@ -9,7 +9,6 @@ export const signin = async (req:Request, res:Response) => {
     const errors = validationResult(req);
   
      
-  
     if (!errors.isEmpty()) {
       const firstError = errors.array().map((error) => error.msg)[0];
       res.status(422).json({

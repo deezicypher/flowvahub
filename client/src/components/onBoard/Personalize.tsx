@@ -46,8 +46,13 @@ const Personalize:FC<StepComponentProps> = ({onNext,setData,data}) => {
               e.preventDefault(); // Prevent default form submission behavior
    
               if ( formData.checkboxAnswers.length > 0) {
+                    const newData = {
+                    ...data,
+                    goals: formData.checkboxAnswers,
+                  };
                     setData(prev=>({...prev,goals:formData.checkboxAnswers}))
-                     await postAPI('profile/onboard',{...data})
+                     const res = await postAPI('profile/onboard',{...newData})
+                     console.log(res)
                     onNext();
               } 
             };

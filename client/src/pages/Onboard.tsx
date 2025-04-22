@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import {  useState } from 'react'
 import Section from '../components/section';
 import AboutYou from '../components/onBoard/AboutYou';
 import Country from '../components/onBoard/Country';
@@ -12,6 +12,7 @@ import { Data } from '../types';
 
 
 const Onboard = () => {
+
   const [data, setData] = useState<Data>({
     describesYou:'',
     workYoudo:[],
@@ -46,6 +47,7 @@ const Onboard = () => {
         return null;
     }
   };
+
   return (
     <div>
       <Section className='relative h-screen'>

@@ -39,8 +39,8 @@ const connectDB = async () => {
     );
        CREATE TABLE IF NOT EXISTS "profile" (
       "id" SERIAL PRIMARY KEY,
-      "describesYou" text NOT NULL,
-      "workYouDo" text[] NOT NULL,
+      "describesyou" text NOT NULL,
+      "workyoudo" text[] NOT NULL,
       "country" varchar,
       "stack" text[],
       "goals" text[]
