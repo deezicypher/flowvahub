@@ -6,6 +6,7 @@ import ProfileRoute from './routes/profile'
 import GoogleRoute from './routes/google'
 import pool from './config/db'
 import dotenv from 'dotenv'
+import path from 'path'
 dotenv.config()
 
 const app = express()
@@ -20,14 +21,26 @@ app.use(cookieSession({
     secure: process.env.NODE_ENV !== 'test'
   }))
 
+ app.use(express.static(path.join(__dirname, './client')))
+
   app.use('/api/users', userRoute)
   app.use('/api/profile', ProfileRoute)
   app.use('/api/google', GoogleRoute)
-
+  app.all(/(.*)/, (req: Request, res: Response) => {
+    res.status(404).json({ error: "Route Not Found" });
+  });  
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({ error: "Something went wrong!" });
 }); 
+
+app.get(/(.*)/, (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, './client/index.html'), (err) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+  });
+});
 
 const connectDB = async () => {
   try {
