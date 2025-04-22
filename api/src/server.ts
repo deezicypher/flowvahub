@@ -13,12 +13,13 @@ const app = express()
 
 app.use(express.json())
 app.use(cors({
-  origin: 'http://localhost:5173', // Your React app's origin
-  credentials: true // Allow cookies to be sent cross-origin
+  origin: process.env.CLIENT_URL , 
+  credentials: true 
 }));
 app.use(cookieSession({
     signed:false,
-    secure: process.env.NODE_ENV !== 'test'
+    secure: process.env.NODE_ENV === 'prod',
+    sameSite: process.env.NODE_ENV === 'prod' ? 'none' : 'lax',
   }))
 
  app.use(express.static(path.join(__dirname, './client')))
@@ -26,9 +27,7 @@ app.use(cookieSession({
   app.use('/api/users', userRoute)
   app.use('/api/profile', ProfileRoute)
   app.use('/api/google', GoogleRoute)
-  app.all(/(.*)/, (req: Request, res: Response) => {
-    res.status(404).json({ error: "Route Not Found" });
-  });  
+ 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).json({ error: "Something went wrong!" });
@@ -41,6 +40,8 @@ app.get(/(.*)/, (req: Request, res: Response) => {
     }
   });
 });
+
+ 
 
 const connectDB = async () => {
   try {
