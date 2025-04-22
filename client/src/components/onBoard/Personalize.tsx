@@ -51,8 +51,8 @@ const Personalize:FC<StepComponentProps> = ({onNext,setData,data}) => {
                     goals: formData.checkboxAnswers,
                   };
                     setData(prev=>({...prev,goals:formData.checkboxAnswers}))
-                     const res = await postAPI('profile/onboard',{...newData})
-                     console.log(res)
+                    await postAPI('profile/onboard',{...newData})
+                    
                     onNext();
               } 
             };

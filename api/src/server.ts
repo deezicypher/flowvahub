@@ -3,6 +3,7 @@ import cookieSession from 'cookie-session'
 import cors from 'cors';
 import userRoute from './routes/user'
 import ProfileRoute from './routes/profile'
+import GoogleRoute from './routes/google'
 import pool from './config/db'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -21,6 +22,7 @@ app.use(cookieSession({
 
   app.use('/api/users', userRoute)
   app.use('/api/profile', ProfileRoute)
+  app.use('/api/google', GoogleRoute)
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);

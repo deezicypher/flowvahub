@@ -6,6 +6,7 @@ import { ResetPassword } from '../controllers/user/reset-pass'
 import { forgetPassword } from '../controllers/user/forgot-pass'
 import { verifyToken } from '../middlewares/verify'
 import { currentUser } from '../controllers/user/current'
+import { googleLogin, googleSignup } from '../controllers/googleAuth/google-auth'
 
 const router = express.Router()
 

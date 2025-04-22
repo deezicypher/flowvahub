@@ -1,16 +1,17 @@
 import {useState} from 'react'
 import { useForm } from "react-hook-form"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Section from '../components/section'
 import {  SignupFormData } from '../types'
 import { useAuthContext } from '../context/AuthContext'
 import { useGoogleLogin } from '@react-oauth/google';
+import { postAPI } from '../utils/fetchData'
 
 
 
 const Signup = () => {
-
-
+    const {setUser} = useAuthContext()
+    const navigate = useNavigate()
 
     const {signup,notify,setNotify} = useAuthContext()
     const [showPassword, setShowPassword] = useState(false);
@@ -59,25 +60,33 @@ const Signup = () => {
   const Glogin = useGoogleLogin({      
     onSuccess: async tokenResponse => {
         const {access_token} = tokenResponse;
-        console.log(access_token, tokenResponse)
-        // try {
-        //     const userInfo = await postAPI('auth/login',{access_token})
-        //     console.log(userInfo)
-        //     const {name, picture,username, email, role, id} = userInfo.data.user;
-        //     const doc = {
-        //         name,
-        //         picture,
-        //         email,
-        //       username,
-        //         role,
-        //         id
-        //     }
-        //     localStorage.setItem('user', JSON.stringify(doc))
-        //     navigate('/',{replace:true})
+        
+        try {
+            const userInfo = await postAPI('google/signup',{access_token})
+            const {email, id} = userInfo.data.user;
+            const doc = {email,id}
+        
+            setUser(doc)
+            setTimeout(() => {
+              setNotify({state:true,msg:'Signup Successful! Redirecting...'});
+              setTimeout(()=>{
+                setNotify({state:false,msg:''})
+                return navigate('/Onboard')
+              },2000)
+            }, 2000);
 
-        // } catch (error) {
-        //     console.log(error)
-        // }
+        } catch (error:any) {
+            console.log(error)
+            const fallbackMessage = 'Something went wrong. Please try again.';
+
+            const userFriendlyMessage =
+                error?.response?.data?.error ||                 
+                fallbackMessage;                 
+                setNotify({state:true,msg:userFriendlyMessage,error:true})
+                setTimeout(() => {
+                    setNotify({state:false,msg:'',error:false})
+                }, 5000);
+        }
         
            
     },
