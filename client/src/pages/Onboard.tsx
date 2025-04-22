@@ -4,6 +4,7 @@ import Welcome from '../components/onBoard/welcome';
 import AboutYou from '../components/onBoard/AboutYou';
 import Country from '../components/onBoard/Country';
 import ToolStack from '../components/onBoard/ToolStack';
+import Personalize from '../components/onBoard/Personalize';
 
 
 
@@ -28,6 +29,8 @@ const Onboard = () => {
         return <Country onNext={handleNext} />;
       case 4:
         return <ToolStack onNext={handleNext} />;
+      case 5:
+        return <Personalize onNext={handleNext} />;
       default:
         return null;
     }

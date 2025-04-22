@@ -9,7 +9,7 @@ type StepComponentProps = {
  
   type FormData = {
     radioQuestion: string;
-    checkboxQuestion: string[];
+    checkboxAnswers: string[];
     showOtherInput:boolean;
     other:string;
   };
@@ -17,7 +17,7 @@ type StepComponentProps = {
 const AboutYou:FC<StepComponentProps> = ({onNext}) => {
     const [formData, setFormData] = useState<FormData>({
         radioQuestion: '',
-        checkboxQuestion: [],
+        checkboxAnswers: [],
         showOtherInput:false,
         other:''
       });
@@ -36,18 +36,18 @@ const AboutYou:FC<StepComponentProps> = ({onNext}) => {
           setFormData({
             ...formData,
             showOtherInput: checked, // Show/hide based on the other checkbox
-            checkboxQuestion: checked 
-              ? [...formData.checkboxQuestion.filter(item => item !== 'other'), 'other'] // Add 'other'
-              : formData.checkboxQuestion.filter(item => item !== 'other') // Remove 'other'
+            checkboxAnswers: checked 
+              ? [...formData.checkboxAnswers.filter(item => item !== 'other'), 'other'] // Add 'other'
+              : formData.checkboxAnswers.filter(item => item !== 'other') // Remove 'other'
           });
         } else {
           // Regular options don't affect the Other input visibility
           setFormData({
             ...formData,
             // Maintain the showOtherInput value
-            checkboxQuestion: checked
-              ? [...formData.checkboxQuestion, optionId] // Add this option
-              : formData.checkboxQuestion.filter(item => item !== optionId) // Remove this option
+            checkboxAnswers: checked
+              ? [...formData.checkboxAnswers, optionId] // Add this option
+              : formData.checkboxAnswers.filter(item => item !== optionId) // Remove this option
           });
         }
       };
@@ -61,14 +61,14 @@ const AboutYou:FC<StepComponentProps> = ({onNext}) => {
       };
 
       const isCheckboxChecked = (optionId: string): boolean => {
-        return formData.checkboxQuestion.includes(optionId);
+        return formData.checkboxAnswers.includes(optionId);
       };
     
       const handleSubmit = (e: FormEvent) => {
         e.preventDefault(); // Prevent default form submission behavior
         
-        
-        if (formData.radioQuestion !== '' && formData.checkboxQuestion.length > 0) {
+        console.log(formData)
+        if (formData.radioQuestion !== '' && formData.checkboxAnswers.length > 0) {
           
             onNext();
         } 
