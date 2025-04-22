@@ -33,19 +33,20 @@ const connectDB = async () => {
   try {
     await pool.connect()
     console.log("Connected to DB")
-    await pool.query(`CREATE TABLE IF NOT EXISTS "users" (
-      "id" SERIAL PRIMARY KEY,
-      "email" varchar NOT NULL,
-      "password" varchar NOT NULL,
-      "created_at" timestamptz NOT NULL DEFAULT (now())
+    await pool.query(`CREATE TABLE IF NOT EXISTS users (
+      id SERIAL PRIMARY KEY,
+      email varchar NOT NULL,
+      password varchar NOT NULL,
+      created_at timestamptz NOT NULL DEFAULT (now())
     );
-       CREATE TABLE IF NOT EXISTS "profile" (
-      "id" SERIAL PRIMARY KEY,
-      "describesyou" text NOT NULL,
-      "workyoudo" text[] NOT NULL,
-      "country" varchar,
-      "stack" text[],
-      "goals" text[]
+       CREATE TABLE IF NOT EXISTS profile (
+      id SERIAL PRIMARY KEY,
+      describesyou text NOT NULL,
+      workyoudo text[] NOT NULL,
+      country varchar,
+      stack text[],
+      goals text[],
+      user_id INTEGER NOT NULL
     ) 
     `);
     console.log("Created Table users and profile")
