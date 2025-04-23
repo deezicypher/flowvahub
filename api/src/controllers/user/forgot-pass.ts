@@ -34,7 +34,6 @@ export const forgetPassword = async (req:Request, res:Response):Promise<void> =>
     // generate activation url
   
     const url = `${CLIENT_URL}/reset-password?token=${active_token}`
-    console.log(url)
     // Send Email
     ResetPass(email,url,"Reset Password",res, email)
     return
