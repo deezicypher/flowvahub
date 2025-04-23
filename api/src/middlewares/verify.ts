@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken'
 export const verifyToken = (req:Request, res:Response, next:NextFunction):void => {
   
     const token = req.session?.accesstoken;
+    console.log(token,req.session?.accesstoken)
     if(!token) {
     res.status(401).json({msg:"You're not authenticated"})
     return
