@@ -14,10 +14,6 @@ export const generateActiveToken = (payload: object) => {
 export const generateAccessToken = (payload: object, req: Request) => {
   const accesstoken = jwt.sign(payload, `${ACCESS_TOKEN_SECRET}`, {expiresIn: '1d'})
   
-  // res.cookie('accesstoken', access_token, {
-  //   httpOnly: true,
-  // })
-
   req.session = {
     accesstoken
   }

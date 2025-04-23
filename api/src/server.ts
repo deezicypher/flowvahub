@@ -23,7 +23,7 @@ app.use(cookieSession({
     sameSite: process.env.NODE_ENV === 'prod' ? 'none' : 'lax',
   }))
 
- app.use(express.static(path.join(__dirname, './client')))
+ app.use(express.static(path.join(__dirname, '../client')))
 
   app.use('/api/users', userRoute)
   app.use('/api/profile', ProfileRoute)
@@ -35,7 +35,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 }); 
 
 app.get(/(.*)/, (req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, './client/index.html'), (err) => {
+  res.sendFile(path.join(__dirname, '../client/index.html'), (err) => {
     if (err) {
       res.status(500).send(err);
     }
