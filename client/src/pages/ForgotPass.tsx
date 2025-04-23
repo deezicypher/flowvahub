@@ -21,7 +21,7 @@ const ForgotPass = () => {
        <div>
        <Section  className='relative px-4 h-screen'>
    
-   <div className='relative bg-white p-10 max-w-[420px] w-full rounded-xl shadow-2xl'>
+   <div className='relative bg-white p-10 max-w-[420px] sm:min-w-[400px] w-full rounded-xl shadow-2xl'>
    <div className='container-bg h-2 absolute w-full top-0 left-0 rounded-t-xl'>{" "}</div>
    <div  className='flex items-center flex-col'>
    <div onClick={() => window.location.href="/"} className='text-primary flex justify-center items-center gap-2'>
