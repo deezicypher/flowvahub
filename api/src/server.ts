@@ -10,6 +10,7 @@ import path from 'path'
 dotenv.config()
 
 const app = express()
+const port = process.env.PORT || 3000; 
 app.set('trust proxy', true)
 app.use(express.json())
 app.use(cors({
@@ -70,7 +71,7 @@ const connectDB = async () => {
   }
 
 }
-  app.listen(3000,() => {
+  app.listen(port,() => {
     connectDB()
     console.log('Listening on port 3000')
   })
