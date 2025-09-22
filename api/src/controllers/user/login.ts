@@ -1,4 +1,4 @@
-import {request, Request,Response} from 'express'
+import { Request,Response} from 'express'
 import {validationResult} from 'express-validator'
 import pool from '../../config/db';
 import bcrypt from 'bcrypt'
