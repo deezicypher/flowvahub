@@ -64,8 +64,7 @@ export const googleSignup = async (req:Request, res:Response) => {
 export const googleLogin = async (req:Request, res:Response) => {
     const {access_token} = req.body; 
 
-    console.log(access_token)
-    
+ 
     try {
     const response = await axios.get('https://www.googleapis.com/oauth2/v3/userinfo', {
                 headers: { Authorization: `Bearer ${access_token}` },})
