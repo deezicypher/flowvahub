@@ -1,6 +1,6 @@
 # Flowvahub 
 
-A fullstack PERN(PostgreSQL, Express, React & Nodejs) auth and onboard  app.
+A fullstack (PostgreSQL, Express, React & Nodejs) auth and onboard Multi-step form app.
 
 ## Functionalities 
 
