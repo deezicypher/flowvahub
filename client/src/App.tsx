@@ -25,7 +25,7 @@ function App() {
    
 
     <Routes>
-      {user.id && 
+      {user?.id && 
       <Route path="/Onboard" element={<Onboard/>} />
 }
     <Route path="/" element={<Login />} />
